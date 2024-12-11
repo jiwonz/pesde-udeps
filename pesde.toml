@@ -1,0 +1,19 @@
+name = "jiwonz/udeps"
+version = "0.1.0"
+description = "Find unused dependencies in pesde.toml"
+authors = ["jiwonz"]
+license = "MIT"
+includes = ["src", "LICENSE.md", "pesde.toml", "README.md"]
+repository = "https://github.com/jiwonz/pesde-udeps"
+
+[target]
+environment = "lune"
+lib = "src/lib.luau"
+bin = "src/bin.luau"
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
+
+[dependencies]
+luaup = { name = "jiwonz/luaup", version = "^0.1.0", target = "luau" }
+pathfs = { name = "jiwonz/pathfs", version = "^0.1.0" }

@@ -1,0 +1,39 @@
+name = "jiwonz/udeps"
+version = "0.1.0"
+target = "lune"
+
+[graph."jiwonz/luaup"."0.1.0 luau"]
+direct = ["luaup", { name = "jiwonz/luaup", version = "^0.1.0", target = "luau" }, "standard"]
+resolved_ty = "standard"
+
+[graph."jiwonz/luaup"."0.1.0 luau".target]
+environment = "luau"
+lib = "lib.luau"
+
+[graph."jiwonz/luaup"."0.1.0 luau".pkg_ref]
+ref_ty = "pesde"
+name = "jiwonz/luaup"
+version = "0.1.0"
+index_url = "https://github.com/pesde-pkg/index"
+
+[graph."jiwonz/luaup"."0.1.0 luau".pkg_ref.target]
+environment = "luau"
+lib = "lib.luau"
+
+[graph."jiwonz/pathfs"."0.1.0 lune"]
+direct = ["pathfs", { name = "jiwonz/pathfs", version = "^0.1.0" }, "standard"]
+resolved_ty = "standard"
+
+[graph."jiwonz/pathfs"."0.1.0 lune".target]
+environment = "lune"
+lib = "init.luau"
+
+[graph."jiwonz/pathfs"."0.1.0 lune".pkg_ref]
+ref_ty = "pesde"
+name = "jiwonz/pathfs"
+version = "0.1.0"
+index_url = "https://github.com/pesde-pkg/index"
+
+[graph."jiwonz/pathfs"."0.1.0 lune".pkg_ref.target]
+environment = "lune"
+lib = "init.luau"
