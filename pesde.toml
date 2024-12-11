@@ -1,5 +1,5 @@
 name = "jiwonz/udeps"
-version = "0.1.0"
+version = "0.1.1"
 description = "Find unused dependencies in pesde.toml"
 authors = ["jiwonz"]
 license = "MIT"

@@ -6,15 +6,40 @@ local stdio = require("@lune/stdio")
 local parse = luaup.parse
 local visit = luaup.visit
 
+local function checkUsed(state, identifier: string)
+	if state.dependencies[identifier] ~= nil then
+		state.dependencies[identifier] = true
+	end
+	if state.devDependencies[identifier] ~= nil then
+		state.devDependencies[identifier] = true
+	end
+end
+
+local pesdePackageFolder: {
+	[string]: boolean
+} = {
+	roblox_packages = true,
+	luau_packages = true,
+	lune_packages = true
+}
+
 local visitor = visit.visitor()
 visitor.visit_var = function(state, node)
 	if node.root.kind == "name" then
-		local identifier = node.root.tok.text
-		if state.dependencies[identifier] ~= nil then
-			state.dependencies[identifier] = true
-		end
-		if state.devDependencies[identifier] ~= nil then
-			state.devDependencies[identifier] = true
+		checkUsed(state, node.root.tok.text)
+	end
+	local lastSecondSuffix = node.suffixes[#node.suffixes - 1]
+	if lastSecondSuffix then
+		if lastSecondSuffix.kind == "nameindex" then
+			local name = lastSecondSuffix.name.text
+			if pesdePackageFolder[name] then
+				local lastSuffix = node.suffixes[#node.suffixes]
+				if lastSuffix then
+					if lastSuffix.kind == "nameindex" then
+						checkUsed(state, lastSuffix.name.text)
+					end
+				end
+			end
 		end
 	end
 end
@@ -22,9 +47,18 @@ end
 local function scan(state, dirPath: pathfs.AsPath)
 	for _, path in pathfs.readDir(dirPath) do
 		path = pathfs.getNoCurDirPathOf(pathfs.Path.from(dirPath):join(path))
-		if path:equal(pathfs.Path.from("luau_packages")) then
+
+		local isPesdePackageFolder = false
+		for folderName in pesdePackageFolder do
+			if path:equal(pathfs.Path.from(folderName)) then
+				isPesdePackageFolder = true
+				break
+			end
+		end
+		if isPesdePackageFolder then
 			continue
 		end
+
 		if path:equal(pathfs.Path.from("lune_packages")) then
 			continue
 		end

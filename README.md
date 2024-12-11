@@ -12,5 +12,8 @@ This is a simple lune script that parses `.lua` and `.luau` files and finds unus
 pesde x jiwonz/udeps
 ```
 
+## Limitations
+- The pesde package folder alias defined in `.luaurc` is not recognized.
+
 ## Credits
 - [luaup](https://github.com/jackdotink/luaup) - A lossless Luau parser written in Luau
